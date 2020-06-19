@@ -20,6 +20,7 @@ class App extends Component{
       currentPiece: "",
       startingPosition: -1,
       playerTurn: "White",
+      possibleEnPassantSquare: "",
       whiteKingHasMoved: false,
       whiteARookHasMoved: false,
       whiteHRookHasMoved: false,
@@ -53,7 +54,7 @@ class App extends Component{
               current = location + diagonalPieceMovements[i];
               let counter = mod;
               diagonalPieceMovements[i] % 2 === 0 ? counter-- : counter++;
-              if (current < 64 && current > 0 && counter >= 0 && counter <= 8 && this.state.boardState[current].includes("black") && Math.floor((location - 8) * .125) === Math.floor(current * .125)) {
+              if (current < 64 && current > 0 && counter >= 0 && counter <= 8 && (this.state.boardState[current].includes("black") || current === this.state.possibleEnPassantSquare) && Math.floor((location - 8) * .125) === Math.floor(current * .125)) {
                 possibleMoves.push(current);
               }
             }
@@ -80,7 +81,7 @@ class App extends Component{
               current = location + diagonalPieceMovements[i];
               let counter = mod;
               diagonalPieceMovements[i] % 2 === 0 ? counter-- : counter++;
-              if (current < 64 && current > 0 && counter >= 0 && counter <= 8 && this.state.boardState[current].includes("white") && Math.floor((location + 8) * .125) === Math.floor(current * .125)) {
+              if (current < 64 && current > 0 && counter >= 0 && counter <= 8 && (this.state.boardState[current].includes("white") || current === this.state.possibleEnPassantSquare) && Math.floor((location + 8) * .125) === Math.floor(current * .125)) {
                 possibleMoves.push(current);
               }
             }
@@ -490,13 +491,26 @@ class App extends Component{
           } else if (this.state.currentPiece.includes("King")) {
             pieceInitial = pieceInitial.concat('K')
           }
-          if (this.state.boardState[position] !== '')  {
+
+          //adds an x to notation if a capture is made.
+          if (this.state.boardState[position] !== '' || (this.state.possibleEnPassantSquare === position && this.state.currentPiece.includes("Pawn")))  {
             if (this.state.currentPiece.includes('Pawn')) {
               let columns = ["a", "b", "c", "d", "e", "f", "g", "h"]
               pieceInitial = columns[this.state.startingPosition % 8]
             }
             pieceInitial = pieceInitial.concat('x')
           }
+
+          //sets en passant square for next turn.
+            if (this.state.currentPiece.includes('Pawn') && (this.state.startingPosition - 16 === position || this.state.startingPosition + 16 === position)){
+              if (this.state.currentPiece.includes('white'))  {
+                this.setState({ possibleEnPassantSquare: position + 8})
+              } else {
+                this.setState({ possibleEnPassantSquare: position - 8})
+              }
+            } else {
+              this.setState({ possibleEnPassantSquare: ""})
+            }
           //checks if move is castling
           if (this.state.startingPosition === 4 && position === 2 && this.state.currentPiece === "blackKing") {
             this.setState({
@@ -526,6 +540,43 @@ class App extends Component{
             this.setState({
             boardState: [...this.state.boardState.slice(0,60), "", "whiteRook", "whiteKing", ""],
             moveRecord: [...this.state.moveRecord, "O-O"],
+            currentPiece: "",
+            startingPosition: -1,
+            moveSelected: false,
+            possibleMoves: new Array(64).fill(false),
+            //check for en passant captures
+          })} else if ((this.state.currentPiece === "whitePawn") && this.state.possibleEnPassantSquare === position && this.state.startingPosition - 7 === position) {
+            //white capture to the right
+            this.setState({
+            boardState: [...this.state.boardState.slice(0,position), "whitePawn", ...this.state.boardState.slice(position + 1, position + 7), "", "", ...this.state.boardState.slice(position + 9)],
+            moveRecord: [...this.state.moveRecord, `${ pieceInitial }${ squareName }`],
+            currentPiece: "",
+            startingPosition: -1,
+            moveSelected: false,
+            possibleMoves: new Array(64).fill(false),
+          })} else if ((this.state.currentPiece === "whitePawn") && this.state.possibleEnPassantSquare === position && this.state.startingPosition - 9 === position) {
+            //white capture to the left
+            this.setState({
+            boardState: [...this.state.boardState.slice(0,position), "whitePawn", ...this.state.boardState.slice(position + 1, position + 8), "", "", ...this.state.boardState.slice(position + 10)],
+            moveRecord: [...this.state.moveRecord, `${ pieceInitial }${ squareName }`],
+            currentPiece: "",
+            startingPosition: -1,
+            moveSelected: false,
+            possibleMoves: new Array(64).fill(false),
+          })} else if ((this.state.currentPiece === "blackPawn") && this.state.possibleEnPassantSquare === position && this.state.startingPosition + 7 === position) {
+            //black capture to the left
+            this.setState({
+            boardState: [...this.state.boardState.slice(0,position - 8), "", "", ...this.state.boardState.slice(position - 6, position), "blackPawn", ...this.state.boardState.slice(position + 1)],
+            moveRecord: [...this.state.moveRecord, `${ pieceInitial }${ squareName }`],
+            currentPiece: "",
+            startingPosition: -1,
+            moveSelected: false,
+            possibleMoves: new Array(64).fill(false),
+          })} else if ((this.state.currentPiece === "blackPawn") && this.state.possibleEnPassantSquare === position && this.state.startingPosition + 9 === position) {
+            //black capture to the right
+            this.setState({
+            boardState: [...this.state.boardState.slice(0,position - 9), "", "", ...this.state.boardState.slice(position - 7, position), "blackPawn", ...this.state.boardState.slice(position + 1)],
+            moveRecord: [...this.state.moveRecord, `${ pieceInitial }${ squareName }`],
             currentPiece: "",
             startingPosition: -1,
             moveSelected: false,

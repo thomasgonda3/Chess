@@ -10,6 +10,8 @@ Completed Goals -
 
 - Castling implemented
 
+- En Passant implemented
+
 - Notation implemented
 
 To-Do list -  
@@ -18,9 +20,7 @@ To-Do list -
 
 - Check and Checkmate
 
-- Prevent King from making illegal moves
-
-- En Passant
+- Prevent King from making illegal moves, and castling through check.
 
 - Add a move number to the notation on the right. e.g. 1) e4 e5 2) Nf3 Nc6
 
