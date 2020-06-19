@@ -1,0 +1,129 @@
+#boardBackground {
+  width: 640px;
+  height: 640px;
+  background-color: #FFFFF0;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#moveBackground {
+  margin: 0 auto;
+  width: 500px;
+  height: 640px;
+  background-color: #FFE6E9;
+}
+
+#boardHolder {
+  width: 560px;
+  height: 560px;
+}
+
+#boardHolderTwo {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+#square {
+  height: 70px;
+  width: 70px;
+}
+
+#selectedSquare {
+  height: 70px;
+  width: 70px;
+  background-color: rgba(220,20,60,.75);
+}
+
+#selector {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  background-color: rgba(255,0,127,.4);
+  position: relative;
+  bottom: -20px;
+  left: 20px;
+  z-index: 100;
+}
+
+#chessPiece {
+  height: 70px;
+  width: 70px;
+}
+
+#chessPawn {
+  height: 70px;
+  width: 70px;
+  margin-left: -1px;
+}
+
+#chessHeaderImage {
+  height: 70px;
+  width: 70px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pieceHolder {
+  position: relative;
+}
+
+.piece {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.column {
+  float: left;
+  width: 50%;
+}
+.left, .right {
+  width: 25%;
+}
+
+.headerColumn {
+  float: left;
+  width: 14.2%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+body {
+  background-color: rgb(224,248,255);
+}
+
+.notationMoves {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  font-style: "Lucida Bright";
+}
+
+.moves {
+  margin-top: -20px;
+}
+
+@media screen and (max-width: 1185px) {
+  .column {
+    width: 100%;
+  }
+}
+
+h1 {
+  text-align: center;
+  font-style: "Geneva";
+  margin-left: -10px;
+}
+
+h2 {
+  text-align: center;
+}
