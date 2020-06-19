@@ -18,9 +18,11 @@ To-Do list -
 
 - En Passant
 
+- Correctly Identify origin square when two of same piece can move to one square when writing notation.  (e.g. Rook on a1 and h1, Rook on h1 moves to f1 even though both can move there.  Correct notation is Rhf1, but currently is Rf1 with no specification.)
+
 Stretch Goal list -
 
-- Drag and drop pieces 
+- Drag and drop pieces
 
 - Implement a clock
 
