@@ -20,6 +20,8 @@ Completed Goals -
 
 To-Do list -  
 
+- Illegal move check doesnt work properly sometimes if the move is made by a king.  It will give bad results if the king moves into a square that is currently not controlled by the enemy side, but will be controlled once the king is finished making his move there.
+
 - Pawn Promotion
 
 - Check and Checkmate

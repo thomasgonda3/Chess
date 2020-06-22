@@ -1267,8 +1267,6 @@ class App extends Component{
     return(
       <React.Fragment>
         { this.castlingConditions() }
-        { console.log(this.state.whiteControlledSquares) }
-        {  console.log(this.state.blackControlledSquares) }
         <div className="row">
           <div className="column left">
           <p></p>
