@@ -16,13 +16,13 @@ Completed Goals -
 
 - Prevent player from moving king into Check and castling through Check
 
+- Prevent player from making a move that reveals their king to check.
+
 To-Do list -  
 
 - Pawn Promotion
 
 - Check and Checkmate
-
-- Prevent player from making a move that reveals their king to check.
 
 - Add a move number to the notation on the right. e.g. 1) e4 e5 2) Nf3 Nc6
 

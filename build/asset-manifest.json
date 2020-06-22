@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/Chess-ThomasG/static/css/main.a56693d4.chunk.css",
-    "main.js": "/Chess-ThomasG/static/js/main.f99e028f.chunk.js",
-    "main.js.map": "/Chess-ThomasG/static/js/main.f99e028f.chunk.js.map",
+    "main.js": "/Chess-ThomasG/static/js/main.10045498.chunk.js",
+    "main.js.map": "/Chess-ThomasG/static/js/main.10045498.chunk.js.map",
     "runtime-main.js": "/Chess-ThomasG/static/js/runtime-main.a9d246d5.js",
     "runtime-main.js.map": "/Chess-ThomasG/static/js/runtime-main.a9d246d5.js.map",
     "static/js/2.05101e02.chunk.js": "/Chess-ThomasG/static/js/2.05101e02.chunk.js",
     "static/js/2.05101e02.chunk.js.map": "/Chess-ThomasG/static/js/2.05101e02.chunk.js.map",
     "index.html": "/Chess-ThomasG/index.html",
-    "precache-manifest.0d26b7e1b38dd9a322e6b5f5a7c58137.js": "/Chess-ThomasG/precache-manifest.0d26b7e1b38dd9a322e6b5f5a7c58137.js",
+    "precache-manifest.d9ee22932647b0e008c1bd660f33d8b3.js": "/Chess-ThomasG/precache-manifest.d9ee22932647b0e008c1bd660f33d8b3.js",
     "service-worker.js": "/Chess-ThomasG/service-worker.js",
     "static/css/main.a56693d4.chunk.css.map": "/Chess-ThomasG/static/css/main.a56693d4.chunk.css.map",
     "static/js/2.05101e02.chunk.js.LICENSE.txt": "/Chess-ThomasG/static/js/2.05101e02.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.a9d246d5.js",
     "static/js/2.05101e02.chunk.js",
     "static/css/main.a56693d4.chunk.css",
-    "static/js/main.f99e028f.chunk.js"
+    "static/js/main.10045498.chunk.js"
   ]
 }
