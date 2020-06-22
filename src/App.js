@@ -419,6 +419,8 @@ class App extends Component{
               }
             }
 
+            possibleMoves = possibleMoves.filter((value) => this.checkIllegalMove(value, location))
+
             this.setState({ possibleMoves: this.state.possibleMoves.map( (value, index) => {
              if (possibleMoves.includes(index))  return true;
              return false;
@@ -471,6 +473,8 @@ class App extends Component{
                 }
               }
             }
+
+            possibleMoves = possibleMoves.filter((value) => this.checkIllegalMove(value, location))
 
             this.setState({ possibleMoves: this.state.possibleMoves.map( (value, index) => {
              if (possibleMoves.includes(index))  return true;
@@ -555,7 +559,7 @@ class App extends Component{
           if (this.state.startingPosition === 4 && position === 2 && this.state.currentPiece === "blackKing") {
             this.setState({
             boardState: ["", "", "blackKing", "blackRook", "", ...this.state.boardState.slice(5)],
-            moveRecord: [...this.state.moveRecord, "O-O-O"],
+            moveRecord: [...this.state.moveRecord, `O-O-O${ this.checkForCheckAndMate(position, this.state.startingPosition)}`],
             currentPiece: "",
             startingPosition: -1,
             moveSelected: false,
@@ -563,7 +567,7 @@ class App extends Component{
           })} else if (this.state.startingPosition === 4 && position === 6 && this.state.currentPiece === "blackKing") {
             this.setState({
             boardState: [...this.state.boardState.slice(0,4), "", "blackRook", "blackKing", "", ...this.state.boardState.slice(8)],
-            moveRecord: [...this.state.moveRecord, "O-O"],
+            moveRecord: [...this.state.moveRecord, `O-O${ this.checkForCheckAndMate(position, this.state.startingPosition)}`],
             currentPiece: "",
             startingPosition: -1,
             moveSelected: false,
@@ -571,7 +575,7 @@ class App extends Component{
           })} else if (this.state.startingPosition === 60 && position === 58 && this.state.currentPiece === "whiteKing") {
             this.setState({
             boardState: [...this.state.boardState.slice(0,56), "", "", "whiteKing", "whiteRook", "", ...this.state.boardState.slice(61)],
-            moveRecord: [...this.state.moveRecord, "O-O-O"],
+            moveRecord: [...this.state.moveRecord, `O-O-O${ this.checkForCheckAndMate(position, this.state.startingPosition)}`],
             currentPiece: "",
             startingPosition: -1,
             moveSelected: false,
@@ -579,7 +583,7 @@ class App extends Component{
           })} else if (this.state.startingPosition === 60 && position === 62 && this.state.currentPiece === "whiteKing") {
             this.setState({
             boardState: [...this.state.boardState.slice(0,60), "", "whiteRook", "whiteKing", ""],
-            moveRecord: [...this.state.moveRecord, "O-O"],
+            moveRecord: [...this.state.moveRecord, `O-O${ this.checkForCheckAndMate(position, this.state.startingPosition)}`],
             currentPiece: "",
             startingPosition: -1,
             moveSelected: false,
@@ -589,7 +593,7 @@ class App extends Component{
             //white capture to the right
             this.setState({
             boardState: [...this.state.boardState.slice(0,position), "whitePawn", ...this.state.boardState.slice(position + 1, position + 7), "", "", ...this.state.boardState.slice(position + 9)],
-            moveRecord: [...this.state.moveRecord, `${ pieceInitial }${ squareName }`],
+            moveRecord: [...this.state.moveRecord, `${ pieceInitial }${ squareName }${ this.checkForCheckAndMate(position, this.state.startingPosition) }`],
             currentPiece: "",
             startingPosition: -1,
             moveSelected: false,
@@ -598,7 +602,7 @@ class App extends Component{
             //white capture to the left
             this.setState({
             boardState: [...this.state.boardState.slice(0,position), "whitePawn", ...this.state.boardState.slice(position + 1, position + 8), "", "", ...this.state.boardState.slice(position + 10)],
-            moveRecord: [...this.state.moveRecord, `${ pieceInitial }${ squareName }`],
+            moveRecord: [...this.state.moveRecord, `${ pieceInitial }${ squareName }${ this.checkForCheckAndMate(position, this.state.startingPosition) }`],
             currentPiece: "",
             startingPosition: -1,
             moveSelected: false,
@@ -607,7 +611,7 @@ class App extends Component{
             //black capture to the left
             this.setState({
             boardState: [...this.state.boardState.slice(0,position - 8), "", "", ...this.state.boardState.slice(position - 6, position), "blackPawn", ...this.state.boardState.slice(position + 1)],
-            moveRecord: [...this.state.moveRecord, `${ pieceInitial }${ squareName }`],
+            moveRecord: [...this.state.moveRecord, `${ pieceInitial }${ squareName }${ this.checkForCheckAndMate(position, this.state.startingPosition) }`],
             currentPiece: "",
             startingPosition: -1,
             moveSelected: false,
@@ -616,7 +620,7 @@ class App extends Component{
             //black capture to the right
             this.setState({
             boardState: [...this.state.boardState.slice(0,position - 9), "", "", ...this.state.boardState.slice(position - 7, position), "blackPawn", ...this.state.boardState.slice(position + 1)],
-            moveRecord: [...this.state.moveRecord, `${ pieceInitial }${ squareName }`],
+            moveRecord: [...this.state.moveRecord, `${ pieceInitial }${ squareName }${ this.checkForCheckAndMate(position, this.state.startingPosition) }`],
             currentPiece: "",
             startingPosition: -1,
             moveSelected: false,
@@ -625,7 +629,7 @@ class App extends Component{
             //regular moves
             this.setState({
             boardState: [...this.state.boardState.slice(0,this.state.startingPosition), "", ...this.state.boardState.slice(this.state.startingPosition + 1, position), this.state.currentPiece, ...this.state.boardState.slice(position + 1)],
-            moveRecord: [...this.state.moveRecord, `${ pieceInitial }${ squareName }`],
+            moveRecord: [...this.state.moveRecord, `${ pieceInitial }${ squareName }${ this.checkForCheckAndMate(position, this.state.startingPosition) }`],
             currentPiece: "",
             startingPosition: -1,
             moveSelected: false,
@@ -633,13 +637,15 @@ class App extends Component{
           })} else {
             this.setState({
             boardState: [...this.state.boardState.slice(0,position), this.state.currentPiece, ...this.state.boardState.slice(position + 1, this.state.startingPosition), "", ...this.state.boardState.slice(this.state.startingPosition + 1)],
-            moveRecord: [...this.state.moveRecord, `${ pieceInitial }${ squareName }`],
+            moveRecord: [...this.state.moveRecord, `${ pieceInitial }${ squareName }${ this.checkForCheckAndMate(position, this.state.startingPosition) }`],
             currentPiece: "",
             startingPosition: -1,
             moveSelected: false,
             possibleMoves: new Array(64).fill(false)
           })
           }
+          //console.log(pieceInitial)
+          //this.setState({ moveRecord: [...this.state.moveRecord, `${ pieceInitial }${ this.checkForCheckAndMate() }`] })
         }
     }
   }
@@ -946,7 +952,19 @@ class App extends Component{
   checkIllegalMove = (newSquare, location) => {
       let boardDuplicate = []
       //how the board will look after move.
-      if (this.state.playerTurn === "White") {
+      if (this.state.boardState[location] === "whiteKing") {
+        if (location > newSquare) {
+        boardDuplicate = [...this.state.boardState.slice(0,newSquare), "whiteKing", ...this.state.boardState.slice(newSquare + 1, location), "", ...this.state.boardState.slice(location + 1)]
+        } else {
+          boardDuplicate = [...this.state.boardState.slice(0,location), "", ...this.state.boardState.slice(location + 1, newSquare), "whiteKing", ...this.state.boardState.slice(newSquare + 1)]
+        }
+      } else if (this.state.boardState[location] === "blackKing") {
+        if (location > newSquare) {
+        boardDuplicate = [...this.state.boardState.slice(0,newSquare), "blackKing", ...this.state.boardState.slice(newSquare + 1, location), "", ...this.state.boardState.slice(location + 1)]
+        } else {
+          boardDuplicate = [...this.state.boardState.slice(0,location), "", ...this.state.boardState.slice(location + 1, newSquare), "blackKing", ...this.state.boardState.slice(newSquare + 1)]
+        }
+      } else if (this.state.playerTurn === "White") {
         if (location > newSquare) {
         boardDuplicate = [...this.state.boardState.slice(0,newSquare), "whitePawn", ...this.state.boardState.slice(newSquare + 1, location), "", ...this.state.boardState.slice(location + 1)]
         } else {
@@ -959,6 +977,7 @@ class App extends Component{
           boardDuplicate = [...this.state.boardState.slice(0,location), "", ...this.state.boardState.slice(location + 1, newSquare), "blackPawn", ...this.state.boardState.slice(newSquare + 1)]
         }
       }
+
       let possibleWhiteMoves = [];
       let possibleBlackMoves = [];
       let whiteKingPosition = -1;
@@ -1240,6 +1259,332 @@ class App extends Component{
       if (this.state.playerTurn === "Black" && possibleWhiteMoves.includes(blackKingPosition)) return false;
       return true;
   }
+
+  checkForCheckAndMate = (newSquare, location) => {
+      let boardDuplicate = []
+      //how the board will look after move.
+      if (this.state.boardState[location] === "whiteKing") {
+        if (location > newSquare) {
+        boardDuplicate = [...this.state.boardState.slice(0,newSquare), "whiteKing", ...this.state.boardState.slice(newSquare + 1, location), "", ...this.state.boardState.slice(location + 1)]
+        } else {
+          boardDuplicate = [...this.state.boardState.slice(0,location), "", ...this.state.boardState.slice(location + 1, newSquare), "whiteKing", ...this.state.boardState.slice(newSquare + 1)]
+        }
+      } else if (this.state.boardState[location] === "blackKing") {
+        if (location > newSquare) {
+        boardDuplicate = [...this.state.boardState.slice(0,newSquare), "blackKing", ...this.state.boardState.slice(newSquare + 1, location), "", ...this.state.boardState.slice(location + 1)]
+        } else {
+          boardDuplicate = [...this.state.boardState.slice(0,location), "", ...this.state.boardState.slice(location + 1, newSquare), "blackKing", ...this.state.boardState.slice(newSquare + 1)]
+        }
+      } else if (this.state.playerTurn === "White") {
+        if (location > newSquare) {
+        boardDuplicate = [...this.state.boardState.slice(0,newSquare), "whitePawn", ...this.state.boardState.slice(newSquare + 1, location), "", ...this.state.boardState.slice(location + 1)]
+        } else {
+          boardDuplicate = [...this.state.boardState.slice(0,location), "", ...this.state.boardState.slice(location + 1, newSquare), "whitePawn", ...this.state.boardState.slice(newSquare + 1)]
+        }
+      } else {
+        if (location > newSquare) {
+        boardDuplicate = [...this.state.boardState.slice(0,newSquare), "blackPawn", ...this.state.boardState.slice(newSquare + 1, location), "", ...this.state.boardState.slice(location + 1)]
+        } else {
+          boardDuplicate = [...this.state.boardState.slice(0,location), "", ...this.state.boardState.slice(location + 1, newSquare), "blackPawn", ...this.state.boardState.slice(newSquare + 1)]
+        }
+      }
+
+      let possibleWhiteMoves = [];
+      let possibleBlackMoves = [];
+      let whiteKingPosition = -1;
+      let blackKingPosition = -1;
+      for (let location = 0; location < 64; location++) {
+        let mod = location % 8;
+        let current = 0;
+        let verticalPieceMovements = [-8, 8];
+        let horizontalPieceMovements = [-1, 1];
+        let diagonalPieceMovements = [-9, -7, 7, 9];
+        let knightPieceMovements = [-17, -15, -10, -6, 6, 10, 15, 17]
+        if (boardDuplicate[location] === "whiteKing") {
+          whiteKingPosition = location;
+        }
+        if (boardDuplicate[location] === "blackKing") {
+          blackKingPosition = location;
+        }
+        switch (boardDuplicate[location]) {
+          case "whitePawn":
+              for (let i = 0; i < 2; i++) {
+                current = location + diagonalPieceMovements[i];
+                let counter = mod;
+                diagonalPieceMovements[i] % 2 === 0 ? counter-- : counter++;
+                if (current < 64 && current > 0 && counter >= 0 && counter <= 8 && Math.floor((location - 8) * .125) === Math.floor(current * .125)) {
+                  possibleWhiteMoves.push(current);
+                }
+              }
+          break;
+          case "blackPawn":
+              for (let i = 2; i < 4; i++) {
+                current = location + diagonalPieceMovements[i];
+                let counter = mod;
+                diagonalPieceMovements[i] % 2 === 0 ? counter-- : counter++;
+                if (current < 64 && current > 0 && counter >= 0 && counter <= 8 && Math.floor((location + 8) * .125) === Math.floor(current * .125)) {
+                  possibleBlackMoves.push(current);
+                }
+              }
+          break;
+          case "whiteKnight":
+              for (let movement of knightPieceMovements) {
+                current = movement + location
+                if (current < 64 && current > 0) {
+                  let spacesAway = 0;
+                  if (movement === -15 || movement === 17) spacesAway = 1;
+                  if (movement === -17 || movement === 15) spacesAway = -1;
+                  if (movement === -6 || movement === 10) spacesAway = 2;
+                  if (movement === -10 || movement === 6) spacesAway = -2;
+                  if (Math.floor(location * .125) !== Math.floor((location + spacesAway) * .125)) continue;
+                  if (boardDuplicate[current].includes("white")) continue;
+                  possibleWhiteMoves.push(current);
+                }
+              }
+          break;
+          case "blackKnight":
+              for (let movement of knightPieceMovements) {
+                current = movement + location
+                if (current < 64 && current > 0) {
+                  let spacesAway = 0;
+                  if (movement === -15 || movement === 17) spacesAway = 1;
+                  if (movement === -17 || movement === 15) spacesAway = -1;
+                  if (movement === -6 || movement === 10) spacesAway = 2;
+                  if (movement === -10 || movement === 6) spacesAway = -2;
+                  if (Math.floor(location * .125) !== Math.floor((location + spacesAway) * .125)) continue;
+                  if (boardDuplicate[current].includes("black")) continue;
+                  possibleBlackMoves.push(current);
+                }
+              }
+          break;
+          case "whiteBishop":
+              for (let movement in diagonalPieceMovements) {
+                let current = location + diagonalPieceMovements[movement];
+                let counter = mod;
+                movement % 2 === 0 ? counter-- : counter++;
+                while (current < 64 && current > 0 && counter >= 0 && counter < 8) {
+                  if (boardDuplicate[current].includes("white"))  break;
+                  possibleWhiteMoves.push(current);
+                  if (boardDuplicate[current].includes("black"))  break;
+                  current += diagonalPieceMovements[movement];
+                  movement % 2 === 0 ? counter-- : counter++;
+                }
+              }
+          break;
+
+          case "blackBishop":
+              for (let movement in diagonalPieceMovements) {
+                let current = location + diagonalPieceMovements[movement];
+                let counter = mod;
+                movement % 2 === 0 ? counter-- : counter++;
+                while (current < 64 && current > 0 && counter >= 0 && counter < 8) {
+                  if (boardDuplicate[current].includes("black"))  break;
+                  possibleBlackMoves.push(current);
+                  if (boardDuplicate[current].includes("white"))  break;
+                  current += diagonalPieceMovements[movement];
+                  movement % 2 === 0 ? counter-- : counter++;
+                }
+              }
+          break;
+
+          case "whiteRook":
+              for (let movement in verticalPieceMovements) {
+                let current = location + verticalPieceMovements[movement];
+                while (current < 64 && current > 0)  {
+                  if (boardDuplicate[current].includes("white"))  break;
+                  possibleWhiteMoves.push(current);
+                  if (boardDuplicate[current].includes("black"))  break;
+                  current += verticalPieceMovements[movement];;
+                }
+              }
+
+              for (let movement of horizontalPieceMovements)  {
+                let current = location + movement;
+                if (current < 0 || current > 63) continue;
+                if (!boardDuplicate[current].includes("white"))  {
+                  while (Math.floor(current * .125) === Math.floor(location * .125))  {
+                    possibleWhiteMoves.push(current);
+                    current += movement;
+                    if (current > 63 || current < 0)  break;
+                    if (boardDuplicate[current].includes("white"))  break;
+                    if (boardDuplicate[current - movement].includes("black"))  break;
+                  }
+                }
+              }
+          break;
+
+          case "blackRook":
+              for (let movement in verticalPieceMovements) {
+                let current = location + verticalPieceMovements[movement];
+                while (current < 64 && current > 0)  {
+                  if (boardDuplicate[current].includes("black"))  break;
+                  possibleBlackMoves.push(current);
+                  if (boardDuplicate[current].includes("white"))  break;
+                  current += verticalPieceMovements[movement];;
+                }
+              }
+
+              for (let movement of horizontalPieceMovements)  {
+                let current = location + movement;
+                if (current < 0 || current > 63) continue;
+                if (!boardDuplicate[current].includes("black"))  {
+                  while (Math.floor(current * .125) === Math.floor(location * .125))  {
+                    possibleBlackMoves.push(current);
+                    current += movement;
+                    if (current > 63 || current < 0)  break;
+                    if (boardDuplicate[current].includes("black"))  break;
+                    if (boardDuplicate[current - movement].includes("white"))  break;
+                  }
+                }
+              }
+            break;
+          case "whiteQueen":
+              for (let movement in verticalPieceMovements) {
+                let current = location + verticalPieceMovements[movement];
+                while (current < 64 && current > 0)  {
+                  if (boardDuplicate[current].includes("white"))  break;
+                  possibleWhiteMoves.push(current);
+                  if (boardDuplicate[current].includes("black"))  break;
+                  current += verticalPieceMovements[movement];;
+                }
+              }
+
+              for (let movement of horizontalPieceMovements)  {
+                let current = location + movement;
+                if (!boardDuplicate[current].includes("white"))  {
+                  while (Math.floor(current * .125) === Math.floor(location * .125))  {
+                    possibleWhiteMoves.push(current);
+                    current += movement;
+                    if (current > 63 || current < 0)  break;
+                    if (boardDuplicate[current].includes("white"))  break;
+                    if (boardDuplicate[current - movement].includes("black"))  break;
+                  }
+                }
+              }
+
+              for (let movement in diagonalPieceMovements) {
+                let current = location + diagonalPieceMovements[movement];
+                let counter = mod;
+                movement % 2 === 0 ? counter-- : counter++;
+                while (current < 64 && current > 0 && counter >= 0 && counter < 8) {
+                  if (boardDuplicate[current].includes("white"))  break;
+                  possibleWhiteMoves.push(current);
+                  if (boardDuplicate[current].includes("black"))  break;
+                  current += diagonalPieceMovements[movement];
+                  movement % 2 === 0 ? counter-- : counter++;
+                }
+              }
+          break;
+          case "blackQueen":
+              for (let movement in verticalPieceMovements) {
+                let current = location + verticalPieceMovements[movement];
+                while (current < 64 && current > 0)  {
+                  if (boardDuplicate[current].includes("black"))  break;
+                  possibleBlackMoves.push(current);
+                  if (boardDuplicate[current].includes("white"))  break;
+                  current += verticalPieceMovements[movement];;
+                }
+              }
+
+              for (let movement of horizontalPieceMovements)  {
+                let current = location + movement;
+                if (!boardDuplicate[current].includes("black"))  {
+                  while (Math.floor(current * .125) === Math.floor(location * .125))  {
+                    possibleBlackMoves.push(current);
+                    current += movement;
+                    if (current > 63 || current < 0)  break;
+                    if (boardDuplicate[current].includes("black"))  break;
+                    if (boardDuplicate[current - movement].includes("white"))  break;
+                  }
+                }
+              }
+
+              for (let movement in diagonalPieceMovements) {
+                let current = location + diagonalPieceMovements[movement];
+                let counter = mod;
+                movement % 2 === 0 ? counter-- : counter++;
+                while (current < 64 && current > 0 && counter >= 0 && counter < 8) {
+                  if (boardDuplicate[current].includes("black"))  break;
+                  possibleBlackMoves.push(current);
+                  if (boardDuplicate[current].includes("white"))  break;
+                  current += diagonalPieceMovements[movement];
+                  movement % 2 === 0 ? counter-- : counter++;
+                }
+              }
+          break;
+          case "whiteKing":
+              for (let movement in verticalPieceMovements) {
+                let current = location + verticalPieceMovements[movement];
+                if (current < 64 && current > 0 && !boardDuplicate[current].includes("white"))  {
+                  possibleWhiteMoves.push(current);
+                }
+              }
+
+              for (let movement of horizontalPieceMovements)  {
+                let current = location + movement;
+                if (!boardDuplicate[current].includes("white") && Math.floor(current * .125) === Math.floor(location * .125))  {
+                    possibleWhiteMoves.push(current);
+                }
+              }
+
+              for (let movement in diagonalPieceMovements) {
+                let current = location + diagonalPieceMovements[movement];
+                let counter = mod;
+                movement % 2 === 0 ? counter-- : counter++;
+                if (current < 64 && current > 0 && counter >= 0 && counter < 8 && !boardDuplicate[current].includes("white")) {
+                  possibleWhiteMoves.push(current);
+                }
+              }
+          break;
+          case "blackKing":
+              for (let movement in verticalPieceMovements) {
+                let current = location + verticalPieceMovements[movement];
+                if (current < 64 && current > 0 && !boardDuplicate[current].includes("black"))  {
+                  possibleBlackMoves.push(current);
+                }
+              }
+
+              for (let movement of horizontalPieceMovements)  {
+                let current = location + movement;
+                if (!boardDuplicate[current].includes("black") && Math.floor(current * .125) === Math.floor(location * .125))  {
+                    possibleBlackMoves.push(current);
+                }
+              }
+
+              for (let movement in diagonalPieceMovements) {
+                let current = location + diagonalPieceMovements[movement];
+                let counter = mod;
+                movement % 2 === 0 ? counter-- : counter++;
+                if (current < 64 && current > 0 && counter >= 0 && counter < 8 && !boardDuplicate[current].includes("black")) {
+                  possibleBlackMoves.push(current);
+                }
+              }
+          break;
+          default:
+        }
+      }
+      possibleWhiteMoves = [...new Set(possibleWhiteMoves)]
+      possibleBlackMoves = [...new Set(possibleBlackMoves)]
+
+      if (possibleWhiteMoves.length === 0) console.log("here")
+      if (possibleBlackMoves.length === 0) console.log("here")
+
+
+      if (this.state.playerTurn === "White" && possibleBlackMoves.includes(whiteKingPosition) && possibleWhiteMoves.length === 0) {
+        console.log("checkmate")
+        return "#"
+      } else if (this.state.playerTurn === "Black" && possibleBlackMoves.includes(whiteKingPosition)) {
+        console.log("check")
+        return "+"
+      } else if (this.state.playerTurn === "White" && possibleWhiteMoves.includes(blackKingPosition) && possibleBlackMoves.length === 0) {
+        console.log("checkmate")
+        return "#"
+      } else if (this.state.playerTurn === "White" && possibleWhiteMoves.includes(blackKingPosition)) {
+        console.log("check")
+        return "+"
+      } else return ""
+  }
+
 
   render(){
     let board = this.state.colorGrid.map((value,index)=> {
