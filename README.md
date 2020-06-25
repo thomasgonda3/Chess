@@ -18,13 +18,11 @@ Completed Goals -
 
 - Prevent player from making a move that reveals their king to check.
 
+- Check and Checkmate
+
 To-Do list -  
 
-- Illegal move check doesnt work properly sometimes if the move is made by a king.  It will give bad results if the king moves into a square that is currently not controlled by the enemy side, but will be controlled once the king is finished making his move there.
-
 - Pawn Promotion
-
-- Check and Checkmate
 
 - Add a move number to the notation on the right. e.g. 1) e4 e5 2) Nf3 Nc6
 
