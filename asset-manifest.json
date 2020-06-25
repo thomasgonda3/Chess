@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/Chess-ThomasG/static/css/main.a56693d4.chunk.css",
-    "main.js": "/Chess-ThomasG/static/js/main.9d5ac203.chunk.js",
-    "main.js.map": "/Chess-ThomasG/static/js/main.9d5ac203.chunk.js.map",
+    "main.js": "/Chess-ThomasG/static/js/main.6f6e918a.chunk.js",
+    "main.js.map": "/Chess-ThomasG/static/js/main.6f6e918a.chunk.js.map",
     "runtime-main.js": "/Chess-ThomasG/static/js/runtime-main.a9d246d5.js",
     "runtime-main.js.map": "/Chess-ThomasG/static/js/runtime-main.a9d246d5.js.map",
-    "static/js/2.05101e02.chunk.js": "/Chess-ThomasG/static/js/2.05101e02.chunk.js",
-    "static/js/2.05101e02.chunk.js.map": "/Chess-ThomasG/static/js/2.05101e02.chunk.js.map",
+    "static/js/2.a9ea8fab.chunk.js": "/Chess-ThomasG/static/js/2.a9ea8fab.chunk.js",
+    "static/js/2.a9ea8fab.chunk.js.map": "/Chess-ThomasG/static/js/2.a9ea8fab.chunk.js.map",
     "index.html": "/Chess-ThomasG/index.html",
-    "precache-manifest.7e3e2edb49c8589c0f8f5b0beb89e864.js": "/Chess-ThomasG/precache-manifest.7e3e2edb49c8589c0f8f5b0beb89e864.js",
+    "precache-manifest.e885f116bcf3d72aba08d9e416ddc970.js": "/Chess-ThomasG/precache-manifest.e885f116bcf3d72aba08d9e416ddc970.js",
     "service-worker.js": "/Chess-ThomasG/service-worker.js",
     "static/css/main.a56693d4.chunk.css.map": "/Chess-ThomasG/static/css/main.a56693d4.chunk.css.map",
-    "static/js/2.05101e02.chunk.js.LICENSE.txt": "/Chess-ThomasG/static/js/2.05101e02.chunk.js.LICENSE.txt"
+    "static/js/2.a9ea8fab.chunk.js.LICENSE.txt": "/Chess-ThomasG/static/js/2.a9ea8fab.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.a9d246d5.js",
-    "static/js/2.05101e02.chunk.js",
+    "static/js/2.a9ea8fab.chunk.js",
     "static/css/main.a56693d4.chunk.css",
-    "static/js/main.9d5ac203.chunk.js"
+    "static/js/main.6f6e918a.chunk.js"
   ]
 }
