@@ -46,7 +46,7 @@ class App extends Component{
         case "whitePawn":
           if (this.state.playerTurn === "White")  {
             current = location - 8;
-            if (current > 7 && !this.state.boardState[current].includes("white") && !this.state.boardState[current].includes("black"))  {
+            if (current > -1 && !this.state.boardState[current].includes("white") && !this.state.boardState[current].includes("black"))  {
               possibleMoves.push(current);
               if (Math.floor(location * .125) === 6 && !this.state.boardState[current - 8].includes("white") && !this.state.boardState[current - 8].includes("black"))  {
                 possibleMoves.push(current - 8);
@@ -57,7 +57,7 @@ class App extends Component{
               current = location + diagonalPieceMovements[i];
               let counter = mod;
               diagonalPieceMovements[i] % 2 === 0 ? counter-- : counter++;
-              if (current < 64 && current > 0 && counter >= 0 && counter <= 8 && (this.state.boardState[current].includes("black") || current === this.state.possibleEnPassantSquare) && Math.floor((location - 8) * .125) === Math.floor(current * .125)) {
+              if (current < 64 && current > -1 && counter >= 0 && counter <= 8 && (this.state.boardState[current].includes("black") || current === this.state.possibleEnPassantSquare) && Math.floor((location - 8) * .125) === Math.floor(current * .125)) {
                 possibleMoves.push(current);
               }
             }
@@ -75,7 +75,7 @@ class App extends Component{
         case "blackPawn":
           if (this.state.playerTurn === "Black")  {
             current = location + 8;
-            if (current < 56 && !this.state.boardState[current].includes("white") && !this.state.boardState[current].includes("black"))  {
+            if (current < 64 && !this.state.boardState[current].includes("white") && !this.state.boardState[current].includes("black"))  {
               possibleMoves.push(current);
               if (Math.floor(location * .125) === 1 && !this.state.boardState[current + 8].includes("white") && !this.state.boardState[current + 8].includes("black"))  {
                 possibleMoves.push(current + 8);
@@ -86,7 +86,7 @@ class App extends Component{
               current = location + diagonalPieceMovements[i];
               let counter = mod;
               diagonalPieceMovements[i] % 2 === 0 ? counter-- : counter++;
-              if (current < 64 && current > 0 && counter >= 0 && counter <= 8 && (this.state.boardState[current].includes("white") || current === this.state.possibleEnPassantSquare) && Math.floor((location + 8) * .125) === Math.floor(current * .125)) {
+              if (current < 64 && current > -1 && counter >= 0 && counter <= 8 && (this.state.boardState[current].includes("white") || current === this.state.possibleEnPassantSquare) && Math.floor((location + 8) * .125) === Math.floor(current * .125)) {
                 possibleMoves.push(current);
               }
             }
@@ -105,7 +105,7 @@ class App extends Component{
           if (this.state.playerTurn === "White")  {
             for (let movement of knightPieceMovements) {
               current = movement + location
-              if (current < 64 && current > 0) {
+              if (current < 64 && current > -1) {
                 let spacesAway = 0;
                 if (movement === -15 || movement === 17) spacesAway = 1;
                 if (movement === -17 || movement === 15) spacesAway = -1;
@@ -131,7 +131,7 @@ class App extends Component{
           if (this.state.playerTurn === "Black")  {
             for (let movement of knightPieceMovements) {
               current = movement + location
-              if (current < 64 && current > 0) {
+              if (current < 64 && current > -1) {
                 let spacesAway = 0;
                 if (movement === -15 || movement === 17) spacesAway = 1;
                 if (movement === -17 || movement === 15) spacesAway = -1;
@@ -159,7 +159,7 @@ class App extends Component{
               let current = location + diagonalPieceMovements[movement];
               let counter = mod;
               movement % 2 === 0 ? counter-- : counter++;
-              while (current < 64 && current > 0 && counter >= 0 && counter < 8) {
+              while (current < 64 && current > -1 && counter >= 0 && counter < 8) {
                 if (this.state.boardState[current].includes("white"))  break;
                 possibleMoves.push(current);
                 if (this.state.boardState[current].includes("black"))  break;
@@ -185,7 +185,7 @@ class App extends Component{
               let current = location + diagonalPieceMovements[movement];
               let counter = mod;
               movement % 2 === 0 ? counter-- : counter++;
-              while (current < 64 && current > 0 && counter >= 0 && counter < 8) {
+              while (current < 64 && current > -1 && counter >= 0 && counter < 8) {
                 if (this.state.boardState[current].includes("black"))  break;
                 possibleMoves.push(current);
                 if (this.state.boardState[current].includes("white"))  break;
@@ -209,7 +209,7 @@ class App extends Component{
           if (this.state.playerTurn === "White")  {
             for (let movement in verticalPieceMovements) {
               let current = location + verticalPieceMovements[movement];
-              while (current < 64 && current > 0)  {
+              while (current < 64 && current > -1)  {
                 if (this.state.boardState[current].includes("white"))  break;
                 possibleMoves.push(current);
                 if (this.state.boardState[current].includes("black"))  break;
@@ -246,7 +246,7 @@ class App extends Component{
           if (this.state.playerTurn === "Black")  {
             for (let movement in verticalPieceMovements) {
               let current = location + verticalPieceMovements[movement];
-              while (current < 64 && current > 0)  {
+              while (current < 64 && current > -1)  {
                 if (this.state.boardState[current].includes("black"))  break;
                 possibleMoves.push(current);
                 if (this.state.boardState[current].includes("white"))  break;
@@ -282,7 +282,7 @@ class App extends Component{
           if (this.state.playerTurn === "White")  {
             for (let movement in verticalPieceMovements) {
               let current = location + verticalPieceMovements[movement];
-              while (current < 64 && current > 0)  {
+              while (current < 64 && current > -1)  {
                 if (this.state.boardState[current].includes("white"))  break;
                 possibleMoves.push(current);
                 if (this.state.boardState[current].includes("black"))  break;
@@ -307,7 +307,7 @@ class App extends Component{
               let current = location + diagonalPieceMovements[movement];
               let counter = mod;
               movement % 2 === 0 ? counter-- : counter++;
-              while (current < 64 && current > 0 && counter >= 0 && counter < 8) {
+              while (current < 64 && current > -1 && counter >= 0 && counter < 8) {
                 if (this.state.boardState[current].includes("white"))  break;
                 possibleMoves.push(current);
                 if (this.state.boardState[current].includes("black"))  break;
@@ -330,7 +330,7 @@ class App extends Component{
           if (this.state.playerTurn === "Black")  {
             for (let movement in verticalPieceMovements) {
               let current = location + verticalPieceMovements[movement];
-              while (current < 64 && current > 0)  {
+              while (current < 64 && current > -1)  {
                 if (this.state.boardState[current].includes("black"))  break;
                 possibleMoves.push(current);
                 if (this.state.boardState[current].includes("white"))  break;
@@ -355,7 +355,7 @@ class App extends Component{
               let current = location + diagonalPieceMovements[movement];
               let counter = mod;
               movement % 2 === 0 ? counter-- : counter++;
-              while (current < 64 && current > 0 && counter >= 0 && counter < 8) {
+              while (current < 64 && current > -1 && counter >= 0 && counter < 8) {
                 if (this.state.boardState[current].includes("black"))  break;
                 possibleMoves.push(current);
                 if (this.state.boardState[current].includes("white"))  break;
@@ -378,7 +378,7 @@ class App extends Component{
           if (this.state.playerTurn === "White")  {
             for (let movement in verticalPieceMovements) {
               let current = location + verticalPieceMovements[movement];
-              if (current < 64 && current > 0 && !this.state.boardState[current].includes("white"))  {
+              if (current < 64 && current > -1 && !this.state.boardState[current].includes("white"))  {
                 if (!this.state.blackControlledSquares.includes(current)) {
                   possibleMoves.push(current);
                 }
@@ -400,7 +400,7 @@ class App extends Component{
               let current = location + diagonalPieceMovements[movement];
               let counter = mod;
               movement % 2 === 0 ? counter-- : counter++;
-              if (current < 64 && current > 0 && counter >= 0 && counter < 8 && !this.state.boardState[current].includes("white")) {
+              if (current < 64 && current > -1 && counter >= 0 && counter < 8 && !this.state.boardState[current].includes("white")) {
                 if (!this.state.blackControlledSquares.includes(current)) {
                   possibleMoves.push(current);
                 }
@@ -435,7 +435,7 @@ class App extends Component{
           if (this.state.playerTurn === "Black")  {
             for (let movement in verticalPieceMovements) {
               let current = location + verticalPieceMovements[movement];
-              if (current < 64 && current > 0 && !this.state.boardState[current].includes("black"))  {
+              if (current < 64 && current > -1 && !this.state.boardState[current].includes("black"))  {
                 if (!this.state.whiteControlledSquares.includes(current)) {
                   possibleMoves.push(current);
                 }
@@ -457,7 +457,7 @@ class App extends Component{
               let current = location + diagonalPieceMovements[movement];
               let counter = mod;
               movement % 2 === 0 ? counter-- : counter++;
-              if (current < 64 && current > 0 && counter >= 0 && counter < 8 && !this.state.boardState[current].includes("black")) {
+              if (current < 64 && current > -1 && counter >= 0 && counter < 8 && !this.state.boardState[current].includes("black")) {
                 if (!this.state.whiteControlledSquares.includes(current)) {
                   possibleMoves.push(current);
                 }
@@ -861,6 +861,7 @@ class App extends Component{
                 movement % 2 === 0 ? counter-- : counter++;
               }
             }
+            console.log(possibleWhiteMoves, "possible white moves after white queen")
         break;
         case "blackQueen":
             for (let movement in verticalPieceMovements) {
@@ -961,6 +962,8 @@ class App extends Component{
        whiteControlledSquares: [...possibleWhiteMoves],
        blackControlledSquares: [...possibleBlackMoves]
      })
+
+     return [possibleWhiteMoves, possibleBlackMoves]
      // console.log(possibleWhiteMoves)
      // console.log(possibleBlackMoves)
   }
@@ -1288,7 +1291,7 @@ class App extends Component{
       return true;
   }
 
-  checkmateHelper = (location) => {
+  checkmateHelper = (location, whiteControlledSquares, blackControlledSquares) => {
       let mod = location % 8;
       let current = 0;
       let possibleMoves = [];
@@ -1541,8 +1544,8 @@ class App extends Component{
         case "whiteKing":
             for (let movement in verticalPieceMovements) {
               let current = location + verticalPieceMovements[movement];
-              if (current < 64 && current > 0 && !this.state.boardState[current].includes("white"))  {
-                if (!this.state.blackControlledSquares.includes(current)) {
+              if (current < 64 && current > -1 && !this.state.boardState[current].includes("white"))  {
+                if (!blackControlledSquares.includes(current)) {
                   possibleMoves.push(current);
                 }
               }
@@ -1552,7 +1555,7 @@ class App extends Component{
               let current = location + movement;
               if (current < 64 && current > -1) {
                 if (!this.state.boardState[current].includes("white") && Math.floor(current * .125) === Math.floor(location * .125))  {
-                  if (!this.state.blackControlledSquares.includes(current)) {
+                  if (!blackControlledSquares.includes(current)) {
                     possibleMoves.push(current);
                   }
                 }
@@ -1563,8 +1566,8 @@ class App extends Component{
               let current = location + diagonalPieceMovements[movement];
               let counter = mod;
               movement % 2 === 0 ? counter-- : counter++;
-              if (current < 64 && current > 0 && counter >= 0 && counter < 8 && !this.state.boardState[current].includes("white")) {
-                if (!this.state.blackControlledSquares.includes(current)) {
+              if (current < 64 && current > -1 && counter >= 0 && counter < 8 && !this.state.boardState[current].includes("white")) {
+                if (!blackControlledSquares.includes(current)) {
                   possibleMoves.push(current);
                 }
               }
@@ -1573,10 +1576,12 @@ class App extends Component{
             possibleMoves =  possibleMoves.filter((value) => this.checkIllegalMove(value, location))
         break;
         case "blackKing":
+            //console.log(this.state.boardState)
+            console.log(this.state.whiteControlledSquares, "white controlled squares, in case blackKing")
             for (let movement in verticalPieceMovements) {
               let current = location + verticalPieceMovements[movement];
-              if (current < 64 && current > 0 && !this.state.boardState[current].includes("black"))  {
-                if (!this.state.whiteControlledSquares.includes(current)) {
+              if (current < 64 && current > -1 && !this.state.boardState[current].includes("black"))  {
+                if (!whiteControlledSquares.includes(current)) {
                   possibleMoves.push(current);
                 }
               }
@@ -1586,7 +1591,7 @@ class App extends Component{
               let current = location + movement;
               if (current > -1 && current < 64) {
                 if (!this.state.boardState[current].includes("black") && Math.floor(current * .125) === Math.floor(location * .125))  {
-                  if (!this.state.whiteControlledSquares.includes(current)) {
+                  if (!whiteControlledSquares.includes(current)) {
                     possibleMoves.push(current);
                   }
                 }
@@ -1597,14 +1602,14 @@ class App extends Component{
               let current = location + diagonalPieceMovements[movement];
               let counter = mod;
               movement % 2 === 0 ? counter-- : counter++;
-              if (current < 64 && current > 0 && counter >= 0 && counter < 8 && !this.state.boardState[current].includes("black")) {
-                if (!this.state.whiteControlledSquares.includes(current)) {
+              if (current < 64 && current > -1 && counter >= 0 && counter < 8 && !this.state.boardState[current].includes("black")) {
+                if (!whiteControlledSquares.includes(current)) {
                   possibleMoves.push(current);
                 }
               }
             }
 
-            possibleMoves =  possibleMoves.filter((value) => this.checkIllegalMove(value, location))
+            possibleMoves = possibleMoves.filter((value) => this.checkIllegalMove(value, location))
         break;
         default:
       }
@@ -1613,17 +1618,19 @@ class App extends Component{
 
   checkMateCheck = () => {
     if (this.state.checked === false)  {
-      this.checkSquaresControlled()
+      let array = this.checkSquaresControlled()
       let whiteKingPosition = -1
       let blackKingPosition = -1
       let possibleWhiteMoves = []
       let possibleBlackMoves = []
+      let whiteControlledSquares = array[0]
+      let blackControlledSquares = array[1]
       for (let location = 0; location < 64; location++) {
         if (this.state.boardState[location].length !== 0) {
           if (this.state.boardState[location].includes("white"))  {
-            possibleWhiteMoves = [...possibleWhiteMoves, ...this.checkmateHelper(location)]
+            possibleWhiteMoves = [...possibleWhiteMoves, ...this.checkmateHelper(location, whiteControlledSquares, blackControlledSquares)]
           } else {
-            possibleBlackMoves = [...possibleBlackMoves, ...this.checkmateHelper(location)]
+            possibleBlackMoves = [...possibleBlackMoves, ...this.checkmateHelper(location, whiteControlledSquares, blackControlledSquares)]
           }
           if (this.state.boardState[location] === "whiteKing") whiteKingPosition = location
           if (this.state.boardState[location] === "blackKing") blackKingPosition = location

@@ -43,13 +43,3 @@ Stretch Goal list -
 - Implement a clock
 
 - Improve CSS of page in general
-
-Bugs -
-
-- Pieces can't move digonally, vertically, or knight move onto a8 
-
-- Pawns can't move forward onto the last rank, as white or black. (Captures work)
-
-- Incorrectly states checkmate when the only move to escape checkmate is capturing the piece checking them.
-
-- Incorrectly states checkmate when the only move is to run the king to a square that was controlled by the attacker on the previous turn, but is now being blocked by the piece checking the king.
