@@ -37,3 +37,11 @@ Stretch Goal list -
 - Improve CSS of notation box on the right
 
 - Make Chess Board shrink and grow with page size
+
+Bugs -
+
+- Pieces can't move digonally or vertically onto a8 
+
+- Incorrectly states checkmate when the only move to escape checkmate is capturing the piece checking them.
+
+- Incorrectly states checkmate when the only move is to run the king to a square that was controlled by the attacker on the previous turn, but is now being blocked by the piece checking the king.
