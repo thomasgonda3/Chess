@@ -20,17 +20,19 @@ Completed Goals -
 
 - Check and Checkmate
 
+- Change "(Player) to move" text to "(Player) wins!" upon ending of game (and draw text if tie occurs)
+
+- Add a 1-0, 0-1, or 1/2-1/2 below the move record on the right upon game completion
+
+- Added the stalemate draw condition
+
 To-Do list -  
 
 - Pawn Promotion
 
-- Add draw conditions (stalemate, 3 time repitition, insufficient material, 50 move rule)
+- Add draw conditions (3 time repitition, insufficient material, 50 move rule)
 
 - Correctly Identify origin square when two of same piece can move to one square when writing notation.  e.g. Rook on a1 and h1, Rook on h1 moves to f1 even though both can move there.  Correct notation is Rhf1, but currently is Rf1 with no specification
-
-- Change "(Player) to move" text to "(Player) wins!" upon ending of game (and draw text if tie occurs)
-
-- Add a 1-0, 0-1, or 1/2-1/2 below the move record on the right upon game completion
 
 - Make the move record stay within a scrolling box instead of extending past the pink box on the right once it gets too long.
 

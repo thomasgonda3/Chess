@@ -24,6 +24,8 @@ class App extends Component{
       playerTurn: "White",
       possibleEnPassantSquare: "",
       checked: false,
+      gameOver: false,
+      isTie: false,
       whiteKingHasMoved: false,
       whiteARookHasMoved: false,
       whiteHRookHasMoved: false,
@@ -1642,7 +1644,9 @@ class App extends Component{
       if (this.state.playerTurn === "White" && possibleBlackMoves.includes(whiteKingPosition) && possibleWhiteMoves.length === 0) {
         this.setState({
           moveRecord: [...this.state.moveRecord.slice(0,this.state.moveRecord.length - 1), this.state.moveRecord[this.state.moveRecord.length - 1] + '#'],
-          checked: true
+          checked: true,
+          gameOver: true,
+          playerTurn: "Black"
         })
       } else if (this.state.playerTurn === "White" && possibleBlackMoves.includes(whiteKingPosition)) {
         this.setState({
@@ -1652,12 +1656,26 @@ class App extends Component{
       } else if (this.state.playerTurn === "Black" && possibleWhiteMoves.includes(blackKingPosition) && possibleBlackMoves.length === 0) {
         this.setState({
           moveRecord: [...this.state.moveRecord.slice(0,this.state.moveRecord.length - 1), this.state.moveRecord[this.state.moveRecord.length - 1] + '#'],
-          checked: true
+          checked: true,
+          gameOver: true,
+          playerTurn: "White"
         })
       } else if (this.state.playerTurn === "Black" && possibleWhiteMoves.includes(blackKingPosition)) {
         this.setState({
           moveRecord: [...this.state.moveRecord.slice(0,this.state.moveRecord.length - 1), this.state.moveRecord[this.state.moveRecord.length - 1] + '+'],
           checked: true
+        })
+      } else if (this.state.playerTurn === "Black" && !possibleWhiteMoves.includes(blackKingPosition) && possibleBlackMoves.length === 0) {
+        this.setState({
+          checked: true,
+          gameOver: true,
+          isTie: true
+        })
+      } else if (this.state.playerTurn === "White" && !possibleBlackMoves.includes(blackKingPosition) && possibleWhiteMoves.length === 0) {
+        this.setState({
+          checked: true,
+          gameOver: true,
+          isTie: true
         })
       } else {
         this.setState({
@@ -1740,10 +1758,27 @@ class App extends Component{
           </div>
           <div className="column moves">
             <div id= "moveBackground">
+              {this.state.gameOver === false &&
               <h2>{`${this.state.playerTurn} to move.`}</h2>
+              }
+              {(this.state.gameOver === true && this.state.isTie === false) &&
+              <h2>{`${this.state.playerTurn} wins!`}</h2>
+              }
+              {(this.state.gameOver === true && this.state.isTie === true) &&
+              <h2>{`Draw!`}</h2>
+              }
               <div className="row">
                 { moveList }
               </div>
+              {(this.state.gameOver === true && this.state.playerTurn === "White" && this.state.isTie === false) &&
+              <h2>{`1 - 0`}</h2>
+              }
+              {(this.state.gameOver === true && this.state.playerTurn === "Black" && this.state.isTie === false) &&
+              <h2>{`0 - 1`}</h2>
+              }
+              {(this.state.gameOver === true && this.state.isTie === true) &&
+              <h2>{`1/2 - 1/2`}</h2>
+              }
             </div>
           </div>
         </div>
