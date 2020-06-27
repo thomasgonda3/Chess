@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "659d7f379a8bfc0f0ff3b06b42610cae",
+    "revision": "84ffad39ff563d69d20b032c211591b0",
     "url": "/Chess-ThomasG/index.html"
   },
   {
-    "revision": "c1d8d7d6f2007b576e4d",
+    "revision": "d2de3ab20254b17981c0",
     "url": "/Chess-ThomasG/static/css/main.a56693d4.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Chess-ThomasG/static/js/2.05101e02.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "c1d8d7d6f2007b576e4d",
-    "url": "/Chess-ThomasG/static/js/main.0c0f844a.chunk.js"
+    "revision": "d2de3ab20254b17981c0",
+    "url": "/Chess-ThomasG/static/js/main.2f102444.chunk.js"
   },
   {
     "revision": "d84ddcddc9d29d282953",
