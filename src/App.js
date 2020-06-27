@@ -36,7 +36,7 @@ class App extends Component{
   }
 
   findSquares = (location) => {
-    if (this.state.moveSelected === false) {
+    if (this.state.moveSelected === false && this.state.gameOver === false) {
       let mod = location % 8;
       let current = 0;
       let possibleMoves = [];
