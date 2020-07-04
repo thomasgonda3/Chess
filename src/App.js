@@ -538,9 +538,51 @@ class App extends Component{
           }
 
           //gives a row or column of the piece that is being moved if there is more than one of the same piece that can move to that square
-          // if (!currentPiece.includes("Pawn") && !currentPiece.includes("King")) {
-          //
-          // }
+          if (!this.state.currentPiece.includes("Pawn") && !this.state.currentPiece.includes("King")) {
+            let array = this.checkSquaresControlled()
+            let whiteControlledSquares = array[0]
+            let blackControlledSquares = array[1]
+            let destinationIndex = (squareName.charAt(1) - 1)
+            if (destinationIndex < 3.5)  {
+              destinationIndex = destinationIndex + (3.5 - destinationIndex) * 2
+            } else {
+              destinationIndex = destinationIndex - (destinationIndex - 3.5) * 2
+            }
+            destinationIndex *= 8
+            if (squareName.charAt(0) === "b") {
+              destinationIndex++
+            } else if (squareName.charAt(0) === "c") {
+              destinationIndex += 2
+            } else if (squareName.charAt(0) === "d") {
+              destinationIndex += 3
+            } else if (squareName.charAt(0) === "e") {
+              destinationIndex += 4
+            } else if (squareName.charAt(0) === "f") {
+              destinationIndex += 5
+            } else if (squareName.charAt(0) === "g") {
+              destinationIndex += 6
+            } else if (squareName.charAt(0) === "h") {
+              destinationIndex += 7
+            }
+            for (let location = 0; location < 64; location++) {
+              if (this.state.startingPosition === location)  continue;
+              if (this.state.currentPiece === this.state.boardState[location]) {
+                let otherSamePieceMovements = this.checkmateHelper(location, whiteControlledSquares, blackControlledSquares)
+                if (otherSamePieceMovements.includes(destinationIndex)) {
+                  let columns = ["a", "b", "c", "d", "e", "f", "g", "h"]
+                  let rowName = Math.floor(this.state.startingPosition / 8) + 1
+                  let half = 4.5 - rowName
+                  rowName = rowName + half * 2
+                  let name = `${ columns[this.state.startingPosition % 8] }${ rowName }`
+                  if (this.state.startingPosition % 8 === destinationIndex % 8) {
+                    pieceInitial = pieceInitial.concat(name.charAt(1))
+                  } else {
+                    pieceInitial = pieceInitial.concat(name.charAt(0))
+                  }
+                }
+              }
+            }
+          }
 
           //adds an x to notation if a capture is made.
           if (this.state.boardState[position] !== '' || (this.state.possibleEnPassantSquare === position && this.state.currentPiece.includes("Pawn")))  {

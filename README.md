@@ -26,13 +26,13 @@ Completed Goals -
 
 - Added the stalemate draw condition
 
+- Correctly Identify origin square when two of same piece can move to one square when writing notation.  e.g. Rook on a1 and h1, Rook on h1 moves to f1 even though both can move there.  
+
 To-Do list -  
 
 - Pawn Promotion
 
 - Add draw conditions (3 time repitition, insufficient material, 50 move rule)
-
-- Correctly Identify origin square when two of same piece can move to one square when writing notation.  e.g. Rook on a1 and h1, Rook on h1 moves to f1 even though both can move there.  Correct notation is Rhf1, but currently is Rf1 with no specification
 
 - Make the move record stay within a scrolling box instead of extending past the pink box on the right once it gets too long.
 
